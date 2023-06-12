@@ -7,6 +7,7 @@ import Role from "../db/models/Role";
 import RoleMenuAccess from "../db/models/RoleMenuAccess";
 import MasterMenu from "../db/models/MasterMenu";
 import subMenu from "../db/models/SubMenu";
+import UserIntake from "../db/models/UserIntake";
 
 const Register = async (req: Request, res: Response): Promise<Response> => {
     try {
@@ -20,8 +21,9 @@ const Register = async (req: Request, res: Response): Promise<Response> => {
             verified: true,
             roleId: roleId
         });
+		if(user.active == true){
+		}
         return res.status(201).send(helper.responseData(201, "Created.", null, user));
-        
     } catch (error:any) {
         return res.status(500).send(helper.responseData(500, "", error, null)); 
     }
@@ -171,6 +173,43 @@ const userDetail = async (req: Request, res: Response): Promise<Response> => {
 	}
 };
 
+const userUpdate = async (req: Request, res: Response): Promise<Response> => {
+	try {
+	  const { id } = req.params;
+	  const { password, name, email } = req.body;
+  
+	  const user = await User.findByPk(id);
+  
+	  if (!user) {
+		return res.status(404).send(helper.responseData(404, "User not Found", null, null))
+	  }
+  
+	  if (password) {
+		const hashedPassword = await passwordHelper.passwordHashing(password);
+		user.password = hashedPassword;
+	  }
+	  
+	  if (name) {
+		user.name = name;
+	  }
+  
+	  if (email) {
+		user.email = email;
+	  }
+  
+	  await user.save();
+  
+	  return res.status(200).send(helper.responseData(200,"OK",null,null))
+	} catch (error: any) {
+	  if (error != null && error instanceof Error) {
+		return res.status(500).send(helper.responseData(500,"", error, null));
+	  }
+  
+	  return res.status(500).send(helper.responseData(500, "", error, null));
+	}
+  };  
+
+
 const userLogout = async (req: Request, res: Response): Promise<Response> => {
 	try {
 		const refreshToken = req.cookies?.refreshToken;
@@ -198,4 +237,4 @@ const userLogout = async (req: Request, res: Response): Promise<Response> => {
 }
 
 
-export default { Register, userLogin, refreshToken, userDetail, userLogout };
+export default { Register, userLogin, refreshToken, userDetail, userUpdate, userLogout };

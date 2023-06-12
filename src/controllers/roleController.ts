@@ -13,25 +13,13 @@ const getRole = async (req: Request, res: Response): Promise<Response> => {
 			}
 		});
 
-		return res.status(200).send({
-			status: 200,
-			message: 'OK',
-			data: roles
-		});
+		return res.status(200).send(helper.responseData(200, "OK",null, roles))
 	} catch (error: any) {
 		if (error != null && error instanceof Error) {
-			return res.status(500).send({
-				status: 500,
-				message: error.message,
-				errors: error
-			});
+			return res.status(500).send(helper.responseData(500, "", error, null))
 		}
 
-		return res.status(500).send({
-			status: 500,
-			message: "Internal server error",
-			errors: error
-		});
+		return res.status(500).send(helper.responseData(500, "", error, null))
 	}
 };
 
@@ -58,11 +46,7 @@ const createRole = async (req: Request, res: Response): Promise<Response> => {
 			});
 		}
 
-		return res.status(500).send({
-			status: 500,
-			message: "Internal server error",
-			errors: error
-		});
+		return res.status(500).send(helper.responseData(500,"Data not found", error, null))
 	}
 }
 
@@ -74,11 +58,7 @@ const updateRole = async (req: Request, res: Response): Promise<Response> => {
 		const role = await Role.findByPk(id);
 
 		if (!role) {
-			return res.status(404).send({
-				status: 404,
-				message: "Data Not Found",
-				data: null
-			});
+			return res.status(404).send(helper.responseData(404,"Data not found", null, null))
 		}
 
 		role.roleName = roleName;
@@ -86,11 +66,7 @@ const updateRole = async (req: Request, res: Response): Promise<Response> => {
 
 		await role.save();
 
-		return res.status(200).send({
-			status: 200,
-			message: "OK",
-			data: role
-		});
+		return res.status(200).send(helper.responseData(200,"OK", null, role))
 	} catch (error: any) {
 		if (error != null && error instanceof Error) {
 			return res.status(500).send({

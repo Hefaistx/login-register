@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import connection from "../../config/dbConnection";
 import Role from "./Role";
+import UserIntake from "./UserIntake";
 
 interface UserAttributes {
   id?: number,
@@ -11,6 +12,9 @@ interface UserAttributes {
   accessToken?: string | null,
   verified?: boolean | null, 
   active?: boolean | null,
+  age?: number | null,
+  height?: number | null,
+  weight?: number | null,
 
   createdAt?: Date,
   updatedAt? : Date
@@ -28,6 +32,9 @@ class User extends Model<UserAttributes, UserInput> implements UserAttributes {
   public accessToken!: string;
   public verified!: boolean; 
   public active!: boolean;
+  public age!: number;
+  public height!: number;
+  public weight!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt! : Date;
@@ -67,6 +74,21 @@ User.init({
   active: {
     type: DataTypes.BOOLEAN,
     allowNull: true
+  },
+  age:{
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0
+  },
+  height: {
+    type: DataTypes.DOUBLE,
+    allowNull: true,
+    defaultValue: 0
+  },
+  weight: {
+    type: DataTypes.DOUBLE,
+    allowNull: true,
+    defaultValue: 0
   }
 
 }, {
@@ -74,6 +96,8 @@ User.init({
   sequelize: connection,
   underscored: false
 })
-User.belongsTo(Role, { foreignKey: "roleId" });
 
+
+
+User.belongsTo(Role, { foreignKey: "roleId" });
 export default User;

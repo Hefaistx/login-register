@@ -7,6 +7,8 @@ import subMenuController from "../controllers/subMenuController";
 import authorization from "../middleware/authorization";
 import menuValidation from "../middleware/validation/menuValidation";
 import roleMenuAccessController from "../controllers/roleMenuAccessController";
+import updateUserAdditionalInfo from "../controllers/userAdditionalInfo";
+import userIntakeController from "../controllers/userIntakeController";
 
 
 
@@ -24,7 +26,15 @@ router.post("/user/signup", userValidation.registerValidation, userController.Re
 router.post("/user/login", userController.userLogin);
 router.get("/user/refresh-token", userController.refreshToken);
 router.get("/user/current-user", authorization.authenticated, userController.userDetail);
+router.post("/user/:id", authorization.authenticated,userController.userUpdate);
 router.get("/user/logout", authorization.authenticated, userController.userLogout);
+router.post("/user/:id/additional-info", updateUserAdditionalInfo);
+
+//User Intakes
+router.post("/user-intake", userIntakeController.createUserIntake);
+router.put("/user-intake/:id", userIntakeController.updateUserIntake);
+router.get("/user-intake/:id", userIntakeController.getUserIntakeById);
+router.get("/user-intake/user/:userId", userIntakeController.getUserIntakeByUserId);
 
 // Master Menu Routing
 router.post("/menu", menuValidation.createMenuValidation, authorization.authenticated, authorization.basicAdmin, masterMenuController.createMenu);
