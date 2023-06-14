@@ -15,4 +15,10 @@ const sequelizeConnection = new sequelize_1.Sequelize(dbName, dbUsername, dbPass
     host: dbHost,
     dialect: dbDialect
 });
+if (sequelizeConnection) {
+    console.log('success');
+}
+else {
+    console.log('error');
+}
 exports.default = sequelizeConnection;

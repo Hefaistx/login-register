@@ -41,16 +41,25 @@ UserIntake.init({
     },
     userId: {
         type: sequelize_1.DataTypes.NUMBER
+    },
+    dayOfWeek: {
+        allowNull: false,
+        type: sequelize_1.DataTypes.STRING
     }
 }, {
     timestamps: true,
     sequelize: dbConnection_1.default,
-    underscored: false
+    underscored: false,
+    modelName: 'UserIntake',
 });
-UserIntake.beforeCreate((userIntake, _) => {
-    userIntake.day = new Date(); // Mengatur nilai "day" dengan nilai "createdAt"
+UserIntake.beforeValidate((userIntake, _) => {
+    userIntake.day = userIntake.createdAt;
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayOfWeek = daysOfWeek[userIntake.day.getDay()];
+    userIntake.dayOfWeek = dayOfWeek;
 });
+User_1.default.hasMany(UserIntake);
 UserIntake.belongsTo(User_1.default, {
-    foreignKey: 'id'
+    foreignKey: 'userId'
 });
 exports.default = UserIntake;

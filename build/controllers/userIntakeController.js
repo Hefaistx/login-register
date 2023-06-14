@@ -17,14 +17,13 @@ const UserIntake_1 = __importDefault(require("../db/models/UserIntake"));
 const User_1 = __importDefault(require("../db/models/User"));
 const createUserIntake = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { userId, day, carbohydrates, sugar, proteins, fat } = req.body;
+        const { userId, carbohydrates, sugar, proteins, fat } = req.body;
         const user = yield User_1.default.findByPk(userId);
         if (!user) {
             return res.status(404).send(helper_1.default.responseData(404, "User not found.", null, null));
         }
         const userIntake = yield UserIntake_1.default.create({
             userId,
-            day,
             carbohydrates,
             sugar,
             proteins,
@@ -33,6 +32,7 @@ const createUserIntake = (req, res) => __awaiter(void 0, void 0, void 0, functio
         return res.status(200).send(helper_1.default.responseData(200, "Created", userIntake, null));
     }
     catch (error) {
+        console.log(error);
         return res.status(500).send(helper_1.default.responseData(500, "Internal server error", null, null));
     }
 });
