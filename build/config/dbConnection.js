@@ -11,12 +11,13 @@ const dbName = process.env.DB_NAME;
 const dbUsername = process.env.DB_USERNAME;
 const dbPassword = process.env.DB_PASSWORD;
 const dbDialect = "mysql";
+console.log(dbHost, dbName, dbUsername, dbPassword, dbDialect);
 const sequelizeConnection = new sequelize_1.Sequelize(dbName, dbUsername, dbPassword, {
     host: dbHost,
     dialect: dbDialect
 });
 if (sequelizeConnection) {
-    console.log('success');
+    console.log(dbHost, dbName, dbUsername, dbPassword, dbDialect);
 }
 else {
     console.log('error');

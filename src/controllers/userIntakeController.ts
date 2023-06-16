@@ -21,7 +21,7 @@ const createUserIntake = async (req: Request, res: Response): Promise<Response> 
         fat,
       });
   
-      return res.status(200).send(helper.responseData(200, "Created", userIntake, null));
+      return res.status(200).send(helper.responseData(200, "Created", null, userIntake));
     } catch (error: any) {
       console.log(error);
       return res.status(500).send(helper.responseData(500, "Internal server error", null, null));
@@ -66,7 +66,7 @@ const getUserIntakeById = async (req: Request, res: Response): Promise<Response>
         return res.status(404).send(helper.responseData(404, "User not found.", null, null));
       }
   
-      return res.status(200).send(helper.responseData(200, "OK", userIntake, null));
+      return res.status(200).send(helper.responseData(200, "OK", null, userIntake));
     } catch (error: any) {
       return res.status(500).send(helper.responseData(500, "Internal server error.", null, null));
     }

@@ -4,10 +4,6 @@ import helper from "../functionHelpers/helper";
 import passwordHelper from "../functionHelpers/passwordHelper";
 import User from "../db/models/User";
 import Role from "../db/models/Role";
-import RoleMenuAccess from "../db/models/RoleMenuAccess";
-import MasterMenu from "../db/models/MasterMenu";
-import subMenu from "../db/models/SubMenu";
-import UserIntake from "../db/models/UserIntake";
 
 const Register = async (req: Request, res: Response): Promise<Response> => {
     try {
@@ -21,8 +17,6 @@ const Register = async (req: Request, res: Response): Promise<Response> => {
             verified: true,
             roleId: roleId
         });
-		if(user.active == true){
-		}
         return res.status(201).send(helper.responseData(201, "Created.", null, user));
     } catch (error:any) {
         return res.status(500).send(helper.responseData(500, "", error, null)); 
@@ -65,7 +59,7 @@ const userLogin = async (req: Request, res: Response): Promise<Response> => {
 			maxAge: 24 * 60 * 60 * 1000
 		});
 
-		const roleAccess = await RoleMenuAccess.findAll({
+		/*const roleAccess = await RoleMenuAccess.findAll({
 			where: {
 				roleId: user.roleId,
 				active: true
@@ -90,7 +84,7 @@ const userLogin = async (req: Request, res: Response): Promise<Response> => {
 					id: { [Op.in]: listSubmenuId }
 				}
 			}
-		});
+		});*/
 
 
 		const responseUser = {
@@ -101,7 +95,6 @@ const userLogin = async (req: Request, res: Response): Promise<Response> => {
 			verified: user.verified,
 			active: user.active,
 			token: token,
-			menuAccess: menuAccess
 		}
 		return res.status(200).send(helper.responseData(200, "OK", null, responseUser));
 	} catch (error) {

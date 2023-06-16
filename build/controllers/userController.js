@@ -12,14 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const sequelize_1 = require("sequelize");
 const helper_1 = __importDefault(require("../functionHelpers/helper"));
 const passwordHelper_1 = __importDefault(require("../functionHelpers/passwordHelper"));
 const User_1 = __importDefault(require("../db/models/User"));
 const Role_1 = __importDefault(require("../db/models/Role"));
-const RoleMenuAccess_1 = __importDefault(require("../db/models/RoleMenuAccess"));
-const MasterMenu_1 = __importDefault(require("../db/models/MasterMenu"));
-const SubMenu_1 = __importDefault(require("../db/models/SubMenu"));
 const Register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, email, password, roleId, confirmPassword } = req.body;
@@ -32,8 +28,6 @@ const Register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             verified: true,
             roleId: roleId
         });
-        if (user.active == true) {
-        }
         return res.status(201).send(helper_1.default.responseData(201, "Created.", null, user));
     }
     catch (error) {
@@ -71,30 +65,32 @@ const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         });
-        const roleAccess = yield RoleMenuAccess_1.default.findAll({
+        /*const roleAccess = await RoleMenuAccess.findAll({
             where: {
                 roleId: user.roleId,
                 active: true
             }
         });
+
         const listSubmenuId = roleAccess.map((item) => {
-            return item.submenuId;
+            return item.submenuId
         });
-        const menuAccess = yield MasterMenu_1.default.findAll({
+
+        const menuAccess = await MasterMenu.findAll({
             where: {
                 active: true
             },
             order: [
                 ['ordering', 'ASC'],
-                [SubMenu_1.default, 'ordering', 'ASC']
+                [subMenu, 'ordering', 'ASC']
             ],
             include: {
-                model: SubMenu_1.default,
+                model: subMenu,
                 where: {
-                    id: { [sequelize_1.Op.in]: listSubmenuId }
+                    id: { [Op.in]: listSubmenuId }
                 }
             }
-        });
+        });*/
         const responseUser = {
             id: user.id,
             name: user.name,
@@ -103,7 +99,6 @@ const userLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             verified: user.verified,
             active: user.active,
             token: token,
-            menuAccess: menuAccess
         };
         return res.status(200).send(helper_1.default.responseData(200, "OK", null, responseUser));
     }

@@ -25,6 +25,6 @@ app.use(cors({
 }));
 
 app.listen(process.env.APP_PORT || 8080, () => {
-    console.log((`${APP_NAME} running on ${APP_PORT}`));
+    console.log(`${APP_NAME} running on ${APP_PORT}`);
 });
 

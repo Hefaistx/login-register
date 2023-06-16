@@ -29,7 +29,7 @@ const createUserIntake = (req, res) => __awaiter(void 0, void 0, void 0, functio
             proteins,
             fat,
         });
-        return res.status(200).send(helper_1.default.responseData(200, "Created", userIntake, null));
+        return res.status(200).send(helper_1.default.responseData(200, "Created", null, userIntake));
     }
     catch (error) {
         console.log(error);
@@ -66,7 +66,7 @@ const getUserIntakeById = (req, res) => __awaiter(void 0, void 0, void 0, functi
         if (!userIntake) {
             return res.status(404).send(helper_1.default.responseData(404, "User not found.", null, null));
         }
-        return res.status(200).send(helper_1.default.responseData(200, "OK", userIntake, null));
+        return res.status(200).send(helper_1.default.responseData(200, "OK", null, userIntake));
     }
     catch (error) {
         return res.status(500).send(helper_1.default.responseData(500, "Internal server error.", null, null));
