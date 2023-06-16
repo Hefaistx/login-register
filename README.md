@@ -15,7 +15,7 @@ Cloud Computing team is responsible for:
 - Provide ongoing monitoring, maintenance, and support for the app in the cloud environment. 
 We use Express framework, Typescript, and Sequelize for ORM.
 
-**API USE GUIDE**
+# API USE GUIDE
 
 ENDPOINT:
 https://calowry.et.r.appspot.com/
@@ -100,7 +100,7 @@ GET BY USER ID
 •	URL		: /user-intake/user/:userId
 •	Method	: GET
 
-**CC DEVELOPMENT STEPS**
+# CC DEVELOPMENT STEPS
 
 After testing on the local server, we upload the source code to the server. We use Cloud SQL and Cloud Storage.
 Here are our steps in working on this application:
@@ -109,8 +109,9 @@ Here are our steps in working on this application:
 3. Setting up an account for billing, up to now we're still using the 50$ credit and save the 150$ on other account.
 4. Create an API for login register
 5. Deploy cloud functions for OCR and some relevant buckets and pubsubs.
+6. Using postman for the API testing. 
 
-We use postman for the API testing. The result is kinda be like this :
+# CP
 Kindly check it using the API GUIDE above, thanks.
 Do contact here if there's something wrong with the API or anything:
 nabililyasa2002@gmail.com
