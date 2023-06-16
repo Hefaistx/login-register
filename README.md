@@ -29,29 +29,29 @@ REGISTER
 -	email: as string, must be unique 
 -	password: as string, min 8 chars
 -	confirmPassword: must be same as password
-=====
+xxx
 LOGIN
 •	URL		: /user/login 
 •	Method		: POST
 •	Req Body	: 
 -	name: as string
 -	password: as string
-=====
+xxx
 LOGOUT
 •	URL		: /user/logout
 •	Method		: GET 
 •	Headers	: Authorization Bearer <token>
-=====
+xxx
 CURRENT USER DETAIL
 •	URL		: /user/current-user
 •	Method		: GET
 •	Headers	: Authorization Bearer <token>
-=====
+xxx
 REFRESH TOKEN
 •	URL		: /user/refresh-token
 •	Method		: GET
 •	Headers	: Authorization Bearer <token>
-=====
+xxx
 UPDATE USER
 •	URL		: /user/:id
 •	Method		: POST
@@ -59,7 +59,7 @@ UPDATE USER
 -	name: as string
 -	password: as string, min 8 chars
 •	Headers	: Authorization Bearer <token>
-=======
+xxx
 UPDATE ADDITIONAL INFO (AGE. HEIGHT, WEIGHT)
 •	URL		: /user/:id/additional-info
 •	Method		: POST
@@ -81,7 +81,7 @@ CREATE
 -	sugar: as integer
 -	proteins: as integer
 -	fat: as integer
-=====
+xxx
 UPDATE
 •	URL		: /user-intake/:id
 •	Method	: PUT
@@ -91,7 +91,7 @@ UPDATE
 -	sugar: as integer
 -	proteins: as integer
 -	fat: as integer
-=====
+xxx
 GET BY ID
 •	URL		: /user-intake/:id
 •	Method	: GET
